@@ -8,4 +8,4 @@ edition = "2021"
 # makefile provides qmk and qmk_sys
 
 [build-dependencies]
-bindgen = "0.51"
+bindgen = "^0.54"

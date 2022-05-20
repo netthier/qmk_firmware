@@ -61,13 +61,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+// Rust trampolines
+bool process_record_user_rs(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-        case VRSN:
-            SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-            return false;
-        }
-    }
-    return true;
+    return process_record_user_rs(keycode, record);
+}
+
+bool raw_hid_receive_rs(uint8_t *data, uint8_t length);
+bool raw_hid_receive(uint8_t *data, uint8_t length) {
+    return raw_hid_receive_rs(data, length);
 }
