@@ -4,7 +4,7 @@
 #![allow(non_snake_case)]
 #![allow(dead_code)]
 #![allow(clippy::all)]
-#![allow(unaligned_references)]
+#![allow(unaligned_references)] // remove as soon bindgen 0.55+ works
 
 use core::include;
 

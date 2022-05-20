@@ -1,12 +1,51 @@
+use alloc::ffi::CString;
 use core::slice;
-use qmk::bindgen::{raw_hid_send, rgb_matrix_mode, rgb_matrix_effects, keyrecord_t};
+use core::str;
+use num_enum::TryFromPrimitive;
+use qmk::bindgen::{
+    keyrecord_t, planck_ez_keycodes::ML_SAFE_RANGE, rgb_matrix_effects, rgb_matrix_mode,
+};
+
+const QMK_VERSION: &str = unsafe { str::from_utf8_unchecked(qmk::bindgen::QMK_VERSION) };
+
+#[derive(TryFromPrimitive)]
+#[repr(u32)]
+enum CustomKeycodes {
+    VRSN = ML_SAFE_RANGE,
+}
 
 #[no_mangle]
 pub extern "C" fn raw_hid_receive_rs(data: *const u8, length: u8) {
-    unsafe { raw_hid_send(data as *mut u8, length); }
+    let data = unsafe { slice::from_raw_parts(data, length as usize) };
+    raw_hid_send(data);
 }
 
 #[no_mangle]
 pub extern "C" fn process_record_user_rs(keycode: u16, record: *const keyrecord_t) -> bool {
-    true
+    let record = unsafe { *record };
+    if record.event.pressed
+        && let Ok(custom) = (keycode as u32).try_into() {
+         match custom {
+            CustomKeycodes::VRSN => send_string(&format!("QMK {}", QMK_VERSION)),
+        }
+            false
+    } else {
+        true
+    }
+}
+
+fn raw_hid_send(data: &[u8]) {
+    let ptr = data as *const _ as *mut _;
+    let len = data.len().try_into().unwrap();
+
+    unsafe {
+        qmk::bindgen::raw_hid_send(ptr, len);
+    }
+}
+
+fn send_string(str: &str) {
+    let string = CString::new(str).unwrap();
+    unsafe {
+        qmk::bindgen::send_string(string.as_ptr() as *const _);
+    }
 }
