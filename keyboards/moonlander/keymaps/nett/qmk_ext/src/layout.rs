@@ -11,7 +11,7 @@ macro_rules! layout_moonlander {
     $k10:expr, $k11:expr, $k12:expr, $k13:expr, $k14:expr, $k15:expr, $k16:expr,             $k70:expr, $k71:expr, $k72:expr, $k73:expr, $k74:expr, $k75:expr, $k76:expr,
     $k20:expr, $k21:expr, $k22:expr, $k23:expr, $k24:expr, $k25:expr, $k26:expr,             $k80:expr, $k81:expr, $k82:expr, $k83:expr, $k84:expr, $k85:expr, $k86:expr,
     $k30:expr, $k31:expr, $k32:expr, $k33:expr, $k34:expr, $k35:expr,                                   $k91:expr, $k92:expr, $k93:expr, $k94:expr, $k95:expr, $k96:expr,
-    $k40:expr, $k41:expr, $k42:expr, $k43:expr, $k44:expr, $k53:expr, $kb3:expr,             $ka2:expr, $ka3:expr, $ka4:expr, $ka5:expr, $ka6:expr,
+    $k40:expr, $k41:expr, $k42:expr, $k43:expr, $k44:expr,            $k53:expr,             $kb3:expr,            $ka2:expr, $ka3:expr, $ka4:expr, $ka5:expr, $ka6:expr,
                                                 $k50:expr, $k51:expr, $k52:expr,             $kb4:expr, $kb5:expr, $kb6:expr
 ) => {{
         use alias_kc::*;
@@ -49,7 +49,7 @@ pub const KEYMAPS: Keymaps = [
         del,    q,      w,      e,      r,      t,      tg(Symb),       tg(Symb),y,     u,      i,      o,      p,      lt(Mdia,bsls),
         bspc,   a,      s,      d,      f,      g,      hypr,           meh,    h,      j,      k,      l,      scln,   lgui_t(quot),
         lsft,   lctl_t(z),x,    c,      v,      b,                              n,      m,      comm,   dot,    rctl_t(slsh),rsft,
-        lt(Symb,grv),__,__,     left,   rght,   lalt_t(app),            rctl_t(esc),up, down,   lbrc,   rbrc,   mo(Symb),
+        lt(Symb,grv),__,__,     left,   rght,           lalt_t(app),    rctl_t(esc),    up,     down,   lbrc,   rbrc,   mo(Symb),
                                         spc,    bspc,   lgui,           lalt,   tab,    ent
     ],
 
@@ -59,8 +59,8 @@ pub const KEYMAPS: Keymaps = [
         ______, exlm,   at,     lcbr,   rcbr,   pipe,   ______,         ______, up,     _7,     _8,     _9,     astr,   f12,
         ______, hash,   dlr,    lprn,   rprn,   grv,    ______,         ______, down,   _4,     _5,     _6,     plus,   ______,
         ______, perc,   circ,   lbrc,   rbrc,   tild,                           ampr,   _1,     _2,     _3,     bsls,   ______,
-        eclr,   ______, ______, ______, ______,         rgb_vai,        rgb_tog,______, dot,    _0,     eql,    ______,
-                                                rgb_hud,rgb_vad,rgb_hui,______,    ______, ______
+        eclr,   ______, ______, ______, ______,         rgb_vai,        rgb_tog,        ______, dot,    _0,     eql,    ______,
+                                                rgb_hud,rgb_vad,rgb_hui,______, ______, ______
     ],
 
     // Media
