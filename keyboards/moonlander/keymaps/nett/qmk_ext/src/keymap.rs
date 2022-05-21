@@ -3,15 +3,21 @@ use core::slice;
 use core::str;
 use num_enum::TryFromPrimitive;
 use qmk::bindgen::{
-    keyrecord_t, planck_ez_keycodes::ML_SAFE_RANGE, rgb_matrix_effects, rgb_matrix_mode,
+    keyrecord_t, planck_ez_keycodes::ML_SAFE_RANGE, rgb_matrix_effects, rgb_matrix_mode
 };
+
+use crate::layout;
+
+#[no_mangle]
+#[allow(non_upper_case_globals)]
+pub static keymaps: layout::Keymaps = layout::KEYMAPS;
 
 const QMK_VERSION: &str = unsafe { str::from_utf8_unchecked(qmk::bindgen::QMK_VERSION) };
 
 #[derive(TryFromPrimitive)]
 #[repr(u32)]
-enum CustomKeycodes {
-    VRSN = ML_SAFE_RANGE,
+pub enum CustomKeycode {
+    Version = ML_SAFE_RANGE,
 }
 
 #[no_mangle]
@@ -26,7 +32,7 @@ pub extern "C" fn process_record_user_rs(keycode: u16, record: *const keyrecord_
     if record.event.pressed
         && let Ok(custom) = (keycode as u32).try_into() {
          match custom {
-            CustomKeycodes::VRSN => send_string(&format!("QMK {}", QMK_VERSION)),
+            CustomKeycode::Version => send_string(&format!("QMK {}", QMK_VERSION)),
         }
             false
     } else {

@@ -8,3 +8,6 @@ extern crate alloc;
 static ALLOCATOR: qmk::malloc::MallocFreeAlloc = qmk::malloc::MallocFreeAlloc;
 
 pub mod keymap;
+
+#[rustfmt::skip]
+mod layout;
